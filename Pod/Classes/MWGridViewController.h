@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MWPhotoBrowser.h"
 
-@interface MWGridViewController : UICollectionViewController {}
+@interface MWGridViewController : UICollectionViewController
 
 @property (nonatomic, assign) MWPhotoBrowser *browser;
 @property (nonatomic) BOOL selectionMode;

@@ -10,9 +10,9 @@
 
 @protocol MWTapDetectingViewDelegate;
 
-@interface MWTapDetectingView : UIView {}
+@interface MWTapDetectingView : UIView
 
-@property (nonatomic, weak) id <MWTapDetectingViewDelegate> tapDelegate;
+@property (nonatomic, weak) id<MWTapDetectingViewDelegate> tapDelegate;
 
 @end
 

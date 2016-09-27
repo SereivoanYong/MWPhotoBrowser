@@ -10,28 +10,15 @@
 
 @implementation MWTapDetectingImageView
 
-- (id)initWithFrame:(CGRect)frame {
-	if ((self = [super initWithFrame:frame])) {
+- (instancetype)initWithFrame:(CGRect)frame {
+  self = [super initWithFrame:frame];
+	if (self) {
 		self.userInteractionEnabled = YES;
 	}
 	return self;
 }
 
-- (id)initWithImage:(UIImage *)image {
-	if ((self = [super initWithImage:image])) {
-		self.userInteractionEnabled = YES;
-	}
-	return self;
-}
-
-- (id)initWithImage:(UIImage *)image highlightedImage:(UIImage *)highlightedImage {
-	if ((self = [super initWithImage:image highlightedImage:highlightedImage])) {
-		self.userInteractionEnabled = YES;
-	}
-	return self;
-}
-
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
 	UITouch *touch = [touches anyObject];
 	NSUInteger tapCount = touch.tapCount;
 	switch (tapCount) {
@@ -47,22 +34,25 @@
 		default:
 			break;
 	}
-	[[self nextResponder] touchesEnded:touches withEvent:event];
+	[self.nextResponder touchesEnded:touches withEvent:event];
 }
 
 - (void)handleSingleTap:(UITouch *)touch {
-	if ([_tapDelegate respondsToSelector:@selector(imageView:singleTapDetected:)])
+  if ([_tapDelegate respondsToSelector:@selector(imageView:singleTapDetected:)]) {
 		[_tapDelegate imageView:self singleTapDetected:touch];
+  }
 }
 
 - (void)handleDoubleTap:(UITouch *)touch {
-	if ([_tapDelegate respondsToSelector:@selector(imageView:doubleTapDetected:)])
+  if ([_tapDelegate respondsToSelector:@selector(imageView:doubleTapDetected:)]) {
 		[_tapDelegate imageView:self doubleTapDetected:touch];
+  }
 }
 
 - (void)handleTripleTap:(UITouch *)touch {
-	if ([_tapDelegate respondsToSelector:@selector(imageView:tripleTapDetected:)])
+  if ([_tapDelegate respondsToSelector:@selector(imageView:tripleTapDetected:)]) {
 		[_tapDelegate imageView:self tripleTapDetected:touch];
+  }
 }
 
 @end

@@ -6,24 +6,23 @@
 //  Copyright 2010 d3i. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import "MWPhotoProtocol.h"
+#import <UIKit/UIKit.h>
+#import "MWPhoto.h"
 #import "MWTapDetectingImageView.h"
 #import "MWTapDetectingView.h"
 
-@class MWPhotoBrowser, MWPhoto, MWCaptionView;
+@protocol MWPhoto;
+@class MWPhotoBrowser, MWCaptionView;
 
-@interface MWZoomingScrollView : UIScrollView <UIScrollViewDelegate, MWTapDetectingImageViewDelegate, MWTapDetectingViewDelegate> {
+@interface MWZoomingScrollView : UIScrollView <UIScrollViewDelegate, MWTapDetectingImageViewDelegate, MWTapDetectingViewDelegate>
 
-}
-
-@property () NSUInteger index;
-@property (nonatomic) id <MWPhoto> photo;
+@property (nonatomic, assign) NSUInteger index;
+@property (nonatomic, strong) id<MWPhoto> photo;
 @property (nonatomic, weak) MWCaptionView *captionView;
 @property (nonatomic, weak) UIButton *selectedButton;
 @property (nonatomic, weak) UIButton *playButton;
 
-- (id)initWithPhotoBrowser:(MWPhotoBrowser *)browser;
+- (instancetype)initWithPhotoBrowser:(MWPhotoBrowser *)browser;
 - (void)displayImage;
 - (void)displayImageFailure;
 - (void)setMaxMinZoomScalesForCurrentBounds;
