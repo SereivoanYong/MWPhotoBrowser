@@ -19,29 +19,33 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 #pragma mark - Init
 
-- (id)init {
-  if ((self = [super init])) {
-    [self _initialisation];
-  }
-  return self;
-}
-
-- (id)initWithDelegate:(id <MWPhotoBrowserDelegate>)delegate {
-  if ((self = [self init])) {
+- (instancetype)initWithDelegate:(id<MWPhotoBrowserDelegate>)delegate {
+  self = [self initWithNibName:nil bundle:nil];
+  if (self) {
     _delegate = delegate;
   }
   return self;
 }
 
-- (id)initWithPhotos:(NSArray *)photosArray {
-  if ((self = [self init])) {
-    _fixedPhotosArray = photosArray;
+- (instancetype)initWithPhotos:(NSArray<id<MWPhoto>> *)photos {
+  self = [self initWithNibName:nil bundle:nil];
+  if (self) {
+    _fixedPhotosArray = photos;
   }
   return self;
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
-  if ((self = [super initWithCoder:decoder])) {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+  self = [super initWithNibName:nil bundle:nil];
+  if (self) {
+    [self _initialisation];
+  }
+  return self;
+}
+
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+  self = [super initWithCoder:decoder];
+  if (self) {
     [self _initialisation];
   }
   return self;
@@ -1639,25 +1643,25 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void)showProgressHUDWithMessage:(NSString *)message {
-  self.progressHUD.labelText = message;
+  self.progressHUD.label.text = message;
   self.progressHUD.mode = MBProgressHUDModeIndeterminate;
-  [self.progressHUD show:YES];
+  [self.progressHUD showAnimated:YES];
   self.navigationController.navigationBar.userInteractionEnabled = NO;
 }
 
 - (void)hideProgressHUD:(BOOL)animated {
-  [self.progressHUD hide:animated];
+  [self.progressHUD hideAnimated:animated];
   self.navigationController.navigationBar.userInteractionEnabled = YES;
 }
 
 - (void)showProgressHUDCompleteMessage:(NSString *)message {
   if (message) {
-    if (self.progressHUD.isHidden) [self.progressHUD show:YES];
-    self.progressHUD.labelText = message;
+    if (self.progressHUD.isHidden) [self.progressHUD showAnimated:YES];
+    self.progressHUD.label.text = message;
     self.progressHUD.mode = MBProgressHUDModeCustomView;
-    [self.progressHUD hide:YES afterDelay:1.5];
+    [self.progressHUD hideAnimated:YES afterDelay:1.5];
   } else {
-    [self.progressHUD hide:YES];
+    [self.progressHUD hideAnimated:YES];
   }
   self.navigationController.navigationBar.userInteractionEnabled = YES;
 }

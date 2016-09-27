@@ -12,6 +12,8 @@
 #define MWPHOTO_LOADING_DID_END_NOTIFICATION @"MWPHOTO_LOADING_DID_END_NOTIFICATION"
 #define MWPHOTO_PROGRESS_NOTIFICATION @"MWPHOTO_PROGRESS_NOTIFICATION"
 
+NS_ASSUME_NONNULL_BEGIN
+
 // If you wish to use your own data models for photo then they must conform
 // to this protocol. See instructions for details on each method.
 // Otherwise you can use the MWPhoto object or subclass it yourself to
@@ -30,7 +32,7 @@
 // fetching of images from any external of source. That should be handled
 // in -loadUnderlyingImageAndNotify: which may be called by the photo browser if this
 // methods returns nil.
-@property (nonatomic, strong) UIImage *underlyingImage;
+@property (nonatomic, strong, nullable) UIImage *underlyingImage;
 
 // Called when the browser has determined the underlying images is not
 // already loaded into memory but needs it.
@@ -55,17 +57,19 @@
 @optional
 
 // If photo is empty, in which case, don't show loading error icons
-@property (nonatomic) BOOL emptyImage;
+@property (nonatomic, assign) BOOL emptyImage;
 
 // Video
-@property (nonatomic) BOOL isVideo;
+@property (nonatomic, assign) BOOL isVideo;
 - (void)getVideoURL:(void (^)(NSURL *url))completion;
 
 // Return a caption string to be displayed over the image
 // Return nil to display no caption
-- (NSString *)caption;
+- (nullable NSString *)caption;
 
 // Cancel any background loading of image data
 - (void)cancelAnyLoading;
 
 @end
+
+NS_ASSUME_NONNULL_END

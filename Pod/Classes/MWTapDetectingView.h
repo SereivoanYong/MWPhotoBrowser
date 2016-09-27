@@ -8,20 +8,21 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol MWTapDetectingViewDelegate;
-
-@interface MWTapDetectingView : UIView
-
-@property (nonatomic, weak) id<MWTapDetectingViewDelegate> tapDelegate;
-
-@end
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol MWTapDetectingViewDelegate <NSObject>
 
 @optional
-
 - (void)view:(UIView *)view singleTapDetected:(UITouch *)touch;
 - (void)view:(UIView *)view doubleTapDetected:(UITouch *)touch;
 - (void)view:(UIView *)view tripleTapDetected:(UITouch *)touch;
 
 @end
+
+@interface MWTapDetectingView : UIView
+
+@property (nonatomic, weak, nullable) id<MWTapDetectingViewDelegate> tapDelegate;
+
+@end
+
+NS_ASSUME_NONNULL_END

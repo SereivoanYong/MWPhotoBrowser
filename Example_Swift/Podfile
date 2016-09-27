@@ -1,0 +1,10 @@
+platform :ios, '8.0'
+
+target 'MWPhotoBrowser_Swift' do
+  use_frameworks!
+
+  # Pods for MWPhotoBrowser_Swift
+  pod 'Kingfisher'
+  pod 'MWPhotoBrowser', :path => "../"
+
+end

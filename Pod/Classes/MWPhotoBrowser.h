@@ -19,27 +19,29 @@
 
 @class MWPhotoBrowser;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol MWPhotoBrowserDelegate <NSObject>
 
-- (NSUInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser;
-- (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index;
+@required
+- (NSInteger)numberOfPhotosInPhotoBrowser:(MWPhotoBrowser *)photoBrowser;
+- (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSInteger)index;
 
 @optional
-
-- (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSUInteger)index;
-- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSUInteger)index;
-- (NSString *)photoBrowser:(MWPhotoBrowser *)photoBrowser titleForPhotoAtIndex:(NSUInteger)index;
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSUInteger)index;
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSUInteger)index;
-- (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSUInteger)index;
-- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSUInteger)index selectedChanged:(BOOL)selected;
+- (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSInteger)index;
+- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSInteger)index;
+- (nullable NSString *)photoBrowser:(MWPhotoBrowser *)photoBrowser titleForPhotoAtIndex:(NSInteger)index;
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSInteger)index;
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSInteger)index;
+- (BOOL)photoBrowser:(MWPhotoBrowser *)photoBrowser isPhotoSelectedAtIndex:(NSInteger)index;
+- (void)photoBrowser:(MWPhotoBrowser *)photoBrowser photoAtIndex:(NSInteger)index selectedChanged:(BOOL)selected;
 - (void)photoBrowserDidFinishModalPresentation:(MWPhotoBrowser *)photoBrowser;
 
 @end
 
 @interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, weak) IBOutlet id<MWPhotoBrowserDelegate> delegate;
+@property (nonatomic, weak, nullable) IBOutlet id<MWPhotoBrowserDelegate> delegate;
 @property (nonatomic) BOOL zoomPhotosToFill;
 @property (nonatomic) BOOL displayNavArrows;
 @property (nonatomic) BOOL displayActionButton;
@@ -58,8 +60,8 @@
 @property (nonatomic, strong) NSString *customImageSelectedSmallIconName;
 
 // Init
-- (id)initWithPhotos:(NSArray *)photosArray;
-- (id)initWithDelegate:(id<MWPhotoBrowserDelegate>)delegate;
+- (instancetype)initWithPhotos:(NSArray<id<MWPhoto>> *)photos;
+- (instancetype)initWithDelegate:(nullable id<MWPhotoBrowserDelegate>)delegate;
 
 // Reloads the photo browser and refetches data
 - (void)reloadData;
@@ -72,3 +74,5 @@
 - (void)showPreviousPhotoAnimated:(BOOL)animated;
 
 @end
+
+NS_ASSUME_NONNULL_END

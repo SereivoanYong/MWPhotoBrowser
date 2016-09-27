@@ -1,0 +1,25 @@
+PODS:
+  - DACircularProgress (2.3.1)
+  - Kingfisher (3.1.0)
+  - MBProgressHUD (1.0.0)
+  - MWPhotoBrowser (2.1.2):
+    - DACircularProgress (~> 2.3)
+    - MBProgressHUD (~> 1.0.0)
+
+DEPENDENCIES:
+  - Kingfisher
+  - MWPhotoBrowser (from `../`)
+
+EXTERNAL SOURCES:
+  MWPhotoBrowser:
+    :path: ../
+
+SPEC CHECKSUMS:
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
+  Kingfisher: 7779f22e977393e9533a89a9685beb8f679d3767
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+  MWPhotoBrowser: fab44a2b518de49acf10cb8669cfe3cc7886cdde
+
+PODFILE CHECKSUM: 4a56c7343a643fe09c1e964796ce879e53ae62e2
+
+COCOAPODS: 1.1.0.rc.2
