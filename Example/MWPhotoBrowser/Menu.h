@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MWPhotoBrowser.h"
+#import <MWPhotoBrowser/MWPhotoBrowser.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
 @interface Menu : UITableViewController <MWPhotoBrowserDelegate> {

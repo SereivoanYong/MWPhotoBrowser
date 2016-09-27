@@ -9,7 +9,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MWPhotoBrowser.h"
 #import "MWPhotoBrowserPrivate.h"
-#import "SDImageCache.h"
 #import "UIImage+MWPhotoBrowser.h"
 
 #define PADDING                  10
@@ -95,7 +94,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   _pagingScrollView.delegate = nil;
   [[NSNotificationCenter defaultCenter] removeObserver:self];
   [self releaseAllUnderlyingPhotos:NO];
-  [[SDImageCache sharedImageCache] clearMemory]; // clear memory
+//  [[SDImageCache sharedImageCache] clearMemory]; // clear memory
 }
 
 - (void)releaseAllUnderlyingPhotos:(BOOL)preserveCurrent {
