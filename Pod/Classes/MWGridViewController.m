@@ -27,7 +27,7 @@
     _marginL = 0, _gutterL = 1;
     
     // For pixel perfection...
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
       // iPad
       _columns = 6, _columnsL = 8;
       _margin = 1, _gutter = 2;
@@ -155,8 +155,8 @@
   id<MWPhoto> photo = [_browser thumbPhotoAtIndex:indexPath.row];
   cell.photo = photo;
   cell.gridController = self;
-  cell.selectionMode = _selectionMode;
-  cell.isSelected = [_browser photoIsSelectedAtIndex:indexPath.row];
+  cell.allowsSelection = _allowsSelection;
+  cell.selected = [_browser photoIsSelectedAtIndex:indexPath.row];
   cell.index = indexPath.row;
   UIImage *img = [_browser imageForPhoto:photo];
   if (img) {

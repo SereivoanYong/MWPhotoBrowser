@@ -12,8 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (MWPhotoBrowser)
 
-+ (UIImage *)imageForResourcePath:(NSString *)path ofType:(NSString *)type inBundle:(NSBundle *)bundle;
-+ (UIImage *)clearImageWithSize:(CGSize)size;
++ (nullable UIImage *)imageForResourcePath:(NSString *)path ofType:(NSString *)type inBundle:(NSBundle *)bundle;
++ (nullable UIImage *)clearImageWithSize:(CGSize)size;
 
 @end
 

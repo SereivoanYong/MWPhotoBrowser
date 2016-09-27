@@ -61,11 +61,11 @@ static NSNotificationName const MWPhotoProgressNotification = @"MWPhotoProgressN
 
 // Video
 @property (nonatomic, assign) BOOL isVideo;
-- (void)getVideoURL:(void (^)(NSURL *url))completion;
+- (void)getVideoURL:(void (^)(NSURL * _Nullable url))completion;
 
 // Return a caption string to be displayed over the image
 // Return nil to display no caption
-- (nullable NSString *)caption;
+@property (nonatomic, strong, nullable) NSString *caption;
 
 // Cancel any background loading of image data
 - (void)cancelAnyLoading;

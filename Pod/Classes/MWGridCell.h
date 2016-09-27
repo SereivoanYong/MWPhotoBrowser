@@ -15,10 +15,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWGridCell : UICollectionViewCell
 
 @property (nonatomic, weak, nullable) MWGridViewController *gridController;
-@property (nonatomic) NSUInteger index;
-@property (nonatomic) id<MWPhoto> photo;
-@property (nonatomic) BOOL selectionMode;
-@property (nonatomic) BOOL isSelected;
+@property (nonatomic, assign) NSInteger index;
+@property (nonatomic, strong) id<MWPhoto> photo;
+@property (nonatomic, assign) BOOL allowsSelection;
+@property (nonatomic, assign, getter=isSelected) BOOL selected;
 
 - (void)displayImage;
 

@@ -138,19 +138,15 @@
 
 - (void)displayImage {
   _imageView.image = [_photo underlyingImage];
-  _selectedButton.hidden = !_selectionMode;
+  _selectedButton.hidden = !_allowsSelection;
   [self hideImageFailure];
 }
 
 #pragma mark - Selection
 
-- (void)setSelectionMode:(BOOL)selectionMode {
-  _selectionMode = selectionMode;
-}
-
-- (void)setIsSelected:(BOOL)isSelected {
-  _isSelected = isSelected;
-  _selectedButton.selected = isSelected;
+- (void)setSelected:(BOOL)selected {
+  [super setSelected:selected];
+  _selectedButton.selected = selected;
 }
 
 - (void)selectionButtonPressed {

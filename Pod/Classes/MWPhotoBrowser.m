@@ -76,7 +76,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   _enableGrid = YES;
   _startOnGrid = NO;
   _enableSwipeToDismiss = YES;
-  _delayToHideElements = 5;
+  _delayToHideElements = 5.0;
   _visiblePages = [[NSMutableSet alloc] init];
   _recycledPages = [[NSMutableSet alloc] init];
   _photos = [[NSMutableArray alloc] init];
@@ -705,7 +705,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (void)setPhotoSelected:(BOOL)selected atIndex:(NSUInteger)index {
   if (_displaySelectionButtons) {
     if ([self.delegate respondsToSelector:@selector(photoBrowser:photoAtIndex:selectedChanged:)]) {
-      [self.delegate photoBrowser:self photoAtIndex:index selectedChanged:selected];
+      [self.delegate photoBrowser:self photoAtIndex:index selectedDidChange:selected];
     }
   }
 }
@@ -1084,7 +1084,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   // Title
   NSUInteger numberOfPhotos = [self numberOfPhotos];
   if (_gridController) {
-    if (_gridController.selectionMode) {
+    if (_gridController.allowsSelection) {
       self.title = NSLocalizedString(@"Select Photos", nil);
     } else {
       NSString *photosText;
@@ -1318,7 +1318,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   _gridController = [[MWGridViewController alloc] init];
   _gridController.initialContentOffset = _currentGridContentOffset;
   _gridController.browser = self;
-  _gridController.selectionMode = _displaySelectionButtons;
+  _gridController.allowsSelection = _displaySelectionButtons;
   _gridController.view.frame = self.view.bounds;
   _gridController.view.frame = CGRectOffset(_gridController.view.frame, 0, (self.startOnGrid ? -1 : 1) * self.view.bounds.size.height);
   

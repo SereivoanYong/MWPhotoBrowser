@@ -22,13 +22,13 @@
   
 }
 
-- (instancetype)initWithPhotoBrowser:(MWPhotoBrowser *)browser {
+- (instancetype)initWithPhotoBrowser:(MWPhotoBrowser *)photoBrowser {
   self = [super init];
   if (self) {
     
     // Setup
-    _index = NSUIntegerMax;
-    _photoBrowser = browser;
+    _index = NSIntegerMax;
+    _photoBrowser = photoBrowser;
     
     // Tap view for background
     _tapView = [[MWTapDetectingView alloc] initWithFrame:self.bounds];
@@ -86,7 +86,7 @@
   self.playButton = nil;
   _photoImageView.hidden = NO;
   _photoImageView.image = nil;
-  _index = NSUIntegerMax;
+  _index = NSIntegerMax;
 }
 
 - (BOOL)displayingVideo {

@@ -14,8 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWGridViewController : UICollectionViewController
 
 @property (nonatomic, strong) MWPhotoBrowser *browser;
-@property (nonatomic) BOOL selectionMode;
-@property (nonatomic) CGPoint initialContentOffset;
+@property (nonatomic, assign) BOOL allowsSelection;
+@property (nonatomic, assign) CGPoint initialContentOffset;
 
 - (void)adjustOffsetsAsRequired;
 
