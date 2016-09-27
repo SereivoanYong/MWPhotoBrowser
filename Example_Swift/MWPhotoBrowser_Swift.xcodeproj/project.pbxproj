@@ -13,6 +13,25 @@
 		CB99E7E61D9A73C800851C82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB99E7E41D9A73C800851C82 /* Main.storyboard */; };
 		CB99E7E81D9A73C800851C82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB99E7E71D9A73C800851C82 /* Assets.xcassets */; };
 		CB99E7EB1D9A73C800851C82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB99E7E91D9A73C800851C82 /* LaunchScreen.storyboard */; };
+		CBE134251D9A80160036879A /* MWKFPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBE134241D9A80160036879A /* MWKFPhoto.swift */; };
+		F04EFAE51D9AFF4800F873CB /* photo1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAD31D9AFF4800F873CB /* photo1.jpg */; };
+		F04EFAE61D9AFF4800F873CB /* photo1t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAD41D9AFF4800F873CB /* photo1t.jpg */; };
+		F04EFAE71D9AFF4800F873CB /* photo2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAD51D9AFF4800F873CB /* photo2.jpg */; };
+		F04EFAE81D9AFF4800F873CB /* photo2t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAD61D9AFF4800F873CB /* photo2t.jpg */; };
+		F04EFAE91D9AFF4800F873CB /* photo3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAD71D9AFF4800F873CB /* photo3.jpg */; };
+		F04EFAEA1D9AFF4800F873CB /* photo3t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAD81D9AFF4800F873CB /* photo3t.jpg */; };
+		F04EFAEB1D9AFF4800F873CB /* photo4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAD91D9AFF4800F873CB /* photo4.jpg */; };
+		F04EFAEC1D9AFF4800F873CB /* photo4t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFADA1D9AFF4800F873CB /* photo4t.jpg */; };
+		F04EFAED1D9AFF4800F873CB /* photo5.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFADB1D9AFF4800F873CB /* photo5.jpg */; };
+		F04EFAEE1D9AFF4800F873CB /* photo5t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFADC1D9AFF4800F873CB /* photo5t.jpg */; };
+		F04EFAEF1D9AFF4800F873CB /* photo6.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFADD1D9AFF4800F873CB /* photo6.jpg */; };
+		F04EFAF01D9AFF4800F873CB /* photo6t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFADE1D9AFF4800F873CB /* photo6t.jpg */; };
+		F04EFAF11D9AFF4800F873CB /* photo7.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFADF1D9AFF4800F873CB /* photo7.jpg */; };
+		F04EFAF21D9AFF4800F873CB /* photo7t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAE01D9AFF4800F873CB /* photo7t.jpg */; };
+		F04EFAF31D9AFF4800F873CB /* photo8.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAE11D9AFF4800F873CB /* photo8.jpg */; };
+		F04EFAF41D9AFF4800F873CB /* photo8t.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAE21D9AFF4800F873CB /* photo8t.jpg */; };
+		F04EFAF51D9AFF4800F873CB /* video_thumb.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAE31D9AFF4800F873CB /* video_thumb.jpg */; };
+		F04EFAF61D9AFF4800F873CB /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F04EFAE41D9AFF4800F873CB /* video.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +45,25 @@
 		CB99E7E71D9A73C800851C82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CB99E7EA1D9A73C800851C82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CB99E7EC1D9A73C800851C82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CBE134241D9A80160036879A /* MWKFPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MWKFPhoto.swift; sourceTree = "<group>"; };
+		F04EFAD31D9AFF4800F873CB /* photo1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo1.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo1.jpg"; sourceTree = "<group>"; };
+		F04EFAD41D9AFF4800F873CB /* photo1t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo1t.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo1t.jpg"; sourceTree = "<group>"; };
+		F04EFAD51D9AFF4800F873CB /* photo2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo2.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo2.jpg"; sourceTree = "<group>"; };
+		F04EFAD61D9AFF4800F873CB /* photo2t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo2t.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo2t.jpg"; sourceTree = "<group>"; };
+		F04EFAD71D9AFF4800F873CB /* photo3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo3.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo3.jpg"; sourceTree = "<group>"; };
+		F04EFAD81D9AFF4800F873CB /* photo3t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo3t.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo3t.jpg"; sourceTree = "<group>"; };
+		F04EFAD91D9AFF4800F873CB /* photo4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo4.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo4.jpg"; sourceTree = "<group>"; };
+		F04EFADA1D9AFF4800F873CB /* photo4t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo4t.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo4t.jpg"; sourceTree = "<group>"; };
+		F04EFADB1D9AFF4800F873CB /* photo5.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo5.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo5.jpg"; sourceTree = "<group>"; };
+		F04EFADC1D9AFF4800F873CB /* photo5t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo5t.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo5t.jpg"; sourceTree = "<group>"; };
+		F04EFADD1D9AFF4800F873CB /* photo6.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo6.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo6.jpg"; sourceTree = "<group>"; };
+		F04EFADE1D9AFF4800F873CB /* photo6t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo6t.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo6t.jpg"; sourceTree = "<group>"; };
+		F04EFADF1D9AFF4800F873CB /* photo7.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo7.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo7.jpg"; sourceTree = "<group>"; };
+		F04EFAE01D9AFF4800F873CB /* photo7t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo7t.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo7t.jpg"; sourceTree = "<group>"; };
+		F04EFAE11D9AFF4800F873CB /* photo8.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo8.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo8.jpg"; sourceTree = "<group>"; };
+		F04EFAE21D9AFF4800F873CB /* photo8t.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = photo8t.jpg; path = "../../Example/MWPhotoBrowser/Local Media/photo8t.jpg"; sourceTree = "<group>"; };
+		F04EFAE31D9AFF4800F873CB /* video_thumb.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = video_thumb.jpg; path = "../../Example/MWPhotoBrowser/Local Media/video_thumb.jpg"; sourceTree = "<group>"; };
+		F04EFAE41D9AFF4800F873CB /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = video.mp4; path = "../../Example/MWPhotoBrowser/Local Media/video.mp4"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,14 +116,41 @@
 		CB99E7DF1D9A73C800851C82 /* MWPhotoBrowser_Swift */ = {
 			isa = PBXGroup;
 			children = (
+				F04EFAD21D9AFF3B00F873CB /* Local Media */,
 				CB99E7E01D9A73C800851C82 /* AppDelegate.swift */,
 				CB99E7E21D9A73C800851C82 /* ViewController.swift */,
+				CBE134241D9A80160036879A /* MWKFPhoto.swift */,
 				CB99E7E41D9A73C800851C82 /* Main.storyboard */,
 				CB99E7E71D9A73C800851C82 /* Assets.xcassets */,
 				CB99E7E91D9A73C800851C82 /* LaunchScreen.storyboard */,
 				CB99E7EC1D9A73C800851C82 /* Info.plist */,
 			);
 			path = MWPhotoBrowser_Swift;
+			sourceTree = "<group>";
+		};
+		F04EFAD21D9AFF3B00F873CB /* Local Media */ = {
+			isa = PBXGroup;
+			children = (
+				F04EFAD31D9AFF4800F873CB /* photo1.jpg */,
+				F04EFAD41D9AFF4800F873CB /* photo1t.jpg */,
+				F04EFAD51D9AFF4800F873CB /* photo2.jpg */,
+				F04EFAD61D9AFF4800F873CB /* photo2t.jpg */,
+				F04EFAD71D9AFF4800F873CB /* photo3.jpg */,
+				F04EFAD81D9AFF4800F873CB /* photo3t.jpg */,
+				F04EFAD91D9AFF4800F873CB /* photo4.jpg */,
+				F04EFADA1D9AFF4800F873CB /* photo4t.jpg */,
+				F04EFADB1D9AFF4800F873CB /* photo5.jpg */,
+				F04EFADC1D9AFF4800F873CB /* photo5t.jpg */,
+				F04EFADD1D9AFF4800F873CB /* photo6.jpg */,
+				F04EFADE1D9AFF4800F873CB /* photo6t.jpg */,
+				F04EFADF1D9AFF4800F873CB /* photo7.jpg */,
+				F04EFAE01D9AFF4800F873CB /* photo7t.jpg */,
+				F04EFAE11D9AFF4800F873CB /* photo8.jpg */,
+				F04EFAE21D9AFF4800F873CB /* photo8t.jpg */,
+				F04EFAE31D9AFF4800F873CB /* video_thumb.jpg */,
+				F04EFAE41D9AFF4800F873CB /* video.mp4 */,
+			);
+			name = "Local Media";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -124,6 +189,7 @@
 					CB99E7DC1D9A73C800851C82 = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = QHQ974WAF6;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -151,9 +217,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F04EFAF51D9AFF4800F873CB /* video_thumb.jpg in Resources */,
+				F04EFAE51D9AFF4800F873CB /* photo1.jpg in Resources */,
+				F04EFAF31D9AFF4800F873CB /* photo8.jpg in Resources */,
+				F04EFAE71D9AFF4800F873CB /* photo2.jpg in Resources */,
+				F04EFAF61D9AFF4800F873CB /* video.mp4 in Resources */,
 				CB99E7EB1D9A73C800851C82 /* LaunchScreen.storyboard in Resources */,
 				CB99E7E81D9A73C800851C82 /* Assets.xcassets in Resources */,
+				F04EFAED1D9AFF4800F873CB /* photo5.jpg in Resources */,
+				F04EFAEF1D9AFF4800F873CB /* photo6.jpg in Resources */,
+				F04EFAEE1D9AFF4800F873CB /* photo5t.jpg in Resources */,
 				CB99E7E61D9A73C800851C82 /* Main.storyboard in Resources */,
+				F04EFAEB1D9AFF4800F873CB /* photo4.jpg in Resources */,
+				F04EFAF41D9AFF4800F873CB /* photo8t.jpg in Resources */,
+				F04EFAF21D9AFF4800F873CB /* photo7t.jpg in Resources */,
+				F04EFAF01D9AFF4800F873CB /* photo6t.jpg in Resources */,
+				F04EFAF11D9AFF4800F873CB /* photo7.jpg in Resources */,
+				F04EFAE61D9AFF4800F873CB /* photo1t.jpg in Resources */,
+				F04EFAEC1D9AFF4800F873CB /* photo4t.jpg in Resources */,
+				F04EFAEA1D9AFF4800F873CB /* photo3t.jpg in Resources */,
+				F04EFAE91D9AFF4800F873CB /* photo3.jpg in Resources */,
+				F04EFAE81D9AFF4800F873CB /* photo2t.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB99E7E31D9A73C800851C82 /* ViewController.swift in Sources */,
+				CBE134251D9A80160036879A /* MWKFPhoto.swift in Sources */,
 				CB99E7E11D9A73C800851C82 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -335,11 +420,13 @@
 			baseConfigurationReference = 26B8E52A93EE5C174E81DF9F /* Pods-MWPhotoBrowser_Swift.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = QHQ974WAF6;
 				INFOPLIST_FILE = MWPhotoBrowser_Swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.swiftv.MWPhotoBrowser-Swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -349,6 +436,7 @@
 			baseConfigurationReference = 7D532C1C44151442FB7D3C09 /* Pods-MWPhotoBrowser_Swift.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = QHQ974WAF6;
 				INFOPLIST_FILE = MWPhotoBrowser_Swift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
