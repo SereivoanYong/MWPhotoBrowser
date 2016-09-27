@@ -68,11 +68,11 @@
     // Listen for photo loading notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setProgressFromNotification:)
-                                                 name:MWPHOTO_PROGRESS_NOTIFICATION
+                                                 name:MWPhotoProgressNotification
                                                object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(handleMWPhotoLoadingDidEndNotification:)
-                                                 name:MWPHOTO_LOADING_DID_END_NOTIFICATION
+                                                 name:MWPhotoLoadingDidEndNotification
                                                object:nil];
     
   }

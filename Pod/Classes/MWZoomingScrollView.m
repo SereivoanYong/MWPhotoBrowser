@@ -56,7 +56,7 @@
     // Listen progress notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(setProgressFromNotification:)
-                                                 name:MWPHOTO_PROGRESS_NOTIFICATION
+                                                 name:MWPhotoProgressNotification
                                                object:nil];
     
     // Setup

@@ -88,7 +88,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   // Listen for MWPhoto notifications
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(handleMWPhotoLoadingDidEndNotification:)
-                                               name:MWPHOTO_LOADING_DID_END_NOTIFICATION
+                                               name:MWPhotoLoadingDidEndNotification
                                              object:nil];
   
 }

@@ -6,13 +6,13 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
-// Notifications
-#define MWPHOTO_LOADING_DID_END_NOTIFICATION @"MWPHOTO_LOADING_DID_END_NOTIFICATION"
-#define MWPHOTO_PROGRESS_NOTIFICATION @"MWPHOTO_PROGRESS_NOTIFICATION"
+#import <UIKit/UIKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
+
+// Notifications
+static NSNotificationName const MWPhotoLoadingDidEndNotification = @"MWPhotoLoadingDidEndNotification";
+static NSNotificationName const MWPhotoProgressNotification = @"MWPhotoProgressNotification";
 
 // If you wish to use your own data models for photo then they must conform
 // to this protocol. See instructions for details on each method.
