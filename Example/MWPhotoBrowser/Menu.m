@@ -1114,15 +1114,15 @@
   
   // Create browser
   MWPhotoBrowser *browser = [[MWPhotoBrowser alloc] initWithDelegate:self];
-  browser.displayActionButton = displayActionButton;
-  browser.displayNavArrows = displayNavArrows;
-  browser.displaySelectionButtons = displaySelectionButtons;
-  browser.alwaysShowControls = displaySelectionButtons;
-  browser.zoomPhotosToFill = YES;
-  browser.enableGrid = enableGrid;
-  browser.startOnGrid = startOnGrid;
-  browser.enableSwipeToDismiss = NO;
-  browser.autoPlayOnAppear = autoPlayOnAppear;
+  browser.displaysActionButton = displayActionButton;
+  browser.displaysNavArrows = displayNavArrows;
+  browser.displaysSelectionButtons = displaySelectionButtons;
+  browser.alwaysShowsControls = displaySelectionButtons;
+  browser.zoomsPhotosToFill = YES;
+  browser.gridEnabled = enableGrid;
+  browser.startsOnGrid = startOnGrid;
+  browser.swipeToDismissEnabled = NO;
+  browser.automaticallyPlaysOnAppear = autoPlayOnAppear;
   [browser setCurrentPhotoIndex:0];
   
   // Test custom selection images

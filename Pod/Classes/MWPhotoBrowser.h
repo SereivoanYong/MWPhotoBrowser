@@ -42,15 +42,33 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate>
 
 @property (nonatomic, weak, nullable) IBOutlet id<MWPhotoBrowserDelegate> delegate;
-@property (nonatomic, assign) BOOL zoomPhotosToFill;
-@property (nonatomic, assign) BOOL displayNavArrows;
-@property (nonatomic, assign) BOOL displayActionButton;
-@property (nonatomic, assign) BOOL displaySelectionButtons;
-@property (nonatomic, assign) BOOL alwaysShowControls;
-@property (nonatomic, assign) BOOL enableGrid;
-@property (nonatomic, assign) BOOL enableSwipeToDismiss;
-@property (nonatomic, assign) BOOL startOnGrid;
-@property (nonatomic, assign) BOOL autoPlayOnAppear;
+
+/// Images that almost fill the screen will be initially zoomed to fill (defaults to YES)
+@property (nonatomic, assign) BOOL zoomsPhotosToFill;
+
+/// Whether to display left and right nav arrows on toolbar (defaults to NO)
+@property (nonatomic, assign) BOOL displaysNavArrows;
+
+/// Show action button to allow sharing, copying, etc (defaults to YES)
+@property (nonatomic, assign) BOOL displaysActionButton;
+
+/// Whether selection buttons are shown on each image (defaults to NO)
+@property (nonatomic, assign) BOOL displaysSelectionButtons;
+
+/// Allows to control whether the bars and controls are always visible or whether they fade away to show the photo full (defaults to NO)
+@property (nonatomic, assign) BOOL alwaysShowsControls;
+
+/// Whether to allow the viewing of all the photo thumbnails on a grid (defaults to YES)
+@property (nonatomic, assign, getter=isGridEnabled) BOOL gridEnabled;
+@property (nonatomic, assign, getter=isSwipeToDismissEnabled) BOOL swipeToDismissEnabled;
+
+/// Whether to start on the grid of thumbnails instead of the first photo (defaults to NO)
+@property (nonatomic, assign) BOOL startsOnGrid;
+
+/// Auto-play first video
+@property (nonatomic, assign) BOOL automaticallyPlaysOnAppear;
+
+
 @property (nonatomic, assign) NSTimeInterval delayToHideElements;
 @property (nonatomic, assign, readonly) NSUInteger currentIndex;
 

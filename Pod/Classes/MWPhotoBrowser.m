@@ -6,12 +6,11 @@
 //  Copyright 2010 d3i. All rights reserved.
 //
 
-#import <QuartzCore/QuartzCore.h>
 #import "MWPhotoBrowser.h"
 #import "MWPhotoBrowserPrivate.h"
 #import "UIImage+MWPhotoBrowser.h"
 
-#define PADDING                  10
+#define PADDING 10.0
 
 static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
@@ -38,7 +37,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
   self = [super initWithNibName:nil bundle:nil];
   if (self) {
-    [self _initialisation];
+    [self _commonInit];
   }
   return self;
 }
@@ -46,20 +45,15 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (instancetype)initWithCoder:(NSCoder *)decoder {
   self = [super initWithCoder:decoder];
   if (self) {
-    [self _initialisation];
+    [self _commonInit];
   }
   return self;
 }
 
-- (void)_initialisation {
-  
+- (void)_commonInit {
   // Defaults
-  NSNumber *isVCBasedStatusBarAppearanceNum = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"];
-  if (isVCBasedStatusBarAppearanceNum) {
-    _isVCBasedStatusBarAppearance = isVCBasedStatusBarAppearanceNum.boolValue;
-  } else {
-    _isVCBasedStatusBarAppearance = YES; // default
-  }
+  NSNumber *isVCBasedStatusBarAppearanceNum = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"] ?: @YES;
+  _isVCBasedStatusBarAppearance = isVCBasedStatusBarAppearanceNum.boolValue; // default
   self.hidesBottomBarWhenPushed = YES;
   _hasBelongedToViewController = NO;
   _photoCount = NSNotFound;
@@ -68,14 +62,14 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   _previousPageIndex = NSUIntegerMax;
   _currentVideoIndex = NSUIntegerMax;
   _displayActionButton = YES;
-  _displayNavArrows = NO;
-  _zoomPhotosToFill = YES;
+  _displaysNavArrows = NO;
+  _zoomsPhotosToFill = YES;
   _performingLayout = NO; // Reset on view did appear
   _rotating = NO;
   _viewIsActive = NO;
-  _enableGrid = YES;
-  _startOnGrid = NO;
-  _enableSwipeToDismiss = YES;
+  _gridEnabled = YES;
+  _startsOnGrid = NO;
+  _swipeToDismissEnabled = YES;
   _delayToHideElements = 5.0;
   _visiblePages = [[NSMutableSet alloc] init];
   _recycledPages = [[NSMutableSet alloc] init];
@@ -90,7 +84,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
                                            selector:@selector(handleMWPhotoLoadingDidEndNotification:)
                                                name:MWPhotoLoadingDidEndNotification
                                              object:nil];
-  
 }
 
 - (void)dealloc {
@@ -130,7 +123,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   
   // Releases the view if it doesn't have a superview.
   [super didReceiveMemoryWarning];
-  
 }
 
 #pragma mark - View Loading
@@ -139,11 +131,11 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (void)viewDidLoad {
   
   // Validate grid settings
-  if (_startOnGrid) _enableGrid = YES;
-  if (_enableGrid) {
-    _enableGrid = [_delegate respondsToSelector:@selector(photoBrowser:thumbPhotoAtIndex:)];
+  if (_startsOnGrid) _gridEnabled = YES;
+  if (_gridEnabled) {
+    _gridEnabled = [_delegate respondsToSelector:@selector(photoBrowser:thumbPhotoAtIndex:)];
   }
-  if (!_enableGrid) _startOnGrid = NO;
+  if (!_gridEnabled) _startsOnGrid = NO;
   
   // View
   self.view.backgroundColor = [UIColor blackColor];
@@ -171,14 +163,14 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   _toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
   
   // Toolbar Items
-  if (self.displayNavArrows) {
+  if (self.displaysNavArrows) {
     NSString *arrowPathFormat = @"MWPhotoBrowser.bundle/UIBarButtonItemArrow%@";
     UIImage *previousButtonImage = [UIImage imageForResourcePath:[NSString stringWithFormat:arrowPathFormat, @"Left"] ofType:@"png" inBundle:[NSBundle bundleForClass:[self class]]];
     UIImage *nextButtonImage = [UIImage imageForResourcePath:[NSString stringWithFormat:arrowPathFormat, @"Right"] ofType:@"png" inBundle:[NSBundle bundleForClass:[self class]]];
     _previousButton = [[UIBarButtonItem alloc] initWithImage:previousButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(gotoPreviousPage)];
     _nextButton = [[UIBarButtonItem alloc] initWithImage:nextButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(gotoNextPage)];
   }
-  if (self.displayActionButton) {
+  if (self.displaysActionButton) {
     _actionButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(actionButtonPressed:)];
   }
   
@@ -186,7 +178,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   [self reloadData];
   
   // Swipe to dismiss
-  if (_enableSwipeToDismiss) {
+  if (_swipeToDismissEnabled) {
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(doneButtonPressed:)];
     swipeGesture.direction = UISwipeGestureRecognizerDirectionDown | UISwipeGestureRecognizerDirectionUp;
     [self.view addGestureRecognizer:swipeGesture];
@@ -208,7 +200,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   [_recycledPages removeAllObjects];
   
   // Navigation buttons
-  if ([self.navigationController.viewControllers objectAtIndex:0] == self) {
+  if (self.navigationController.viewControllers.firstObject == self) {
     // We're first on stack so show done button
     _doneButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Done", nil) style:UIBarButtonItemStylePlain target:self action:@selector(doneButtonPressed:)];
     // Set appearance
@@ -216,8 +208,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     [_doneButton setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsCompact];
     [_doneButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [_doneButton setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsCompact];
-    [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
-    [_doneButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
+    [_doneButton setTitleTextAttributes:@{}forState:UIControlStateNormal];
+    [_doneButton setTitleTextAttributes:@{} forState:UIControlStateHighlighted];
     self.navigationItem.rightBarButtonItem = _doneButton;
   } else {
     // We're not first so show back button
@@ -229,8 +221,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsCompact];
     [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [newBackButton setBackButtonBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsCompact];
-    [newBackButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateNormal];
-    [newBackButton setTitleTextAttributes:[NSDictionary dictionary] forState:UIControlStateHighlighted];
+    [newBackButton setTitleTextAttributes:@{} forState:UIControlStateNormal];
+    [newBackButton setTitleTextAttributes:@{} forState:UIControlStateHighlighted];
     _previousViewControllerBackButton = previousViewController.navigationItem.backBarButtonItem; // remember previous
     previousViewController.navigationItem.backBarButtonItem = newBackButton;
   }
@@ -243,7 +235,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   NSMutableArray *items = [[NSMutableArray alloc] init];
   
   // Left button - Grid
-  if (_enableGrid) {
+  if (_gridEnabled) {
     hasItems = YES;
     [items addObject:[[UIBarButtonItem alloc] initWithImage:[UIImage imageForResourcePath:@"MWPhotoBrowser.bundle/UIBarButtonItemGrid" ofType:@"png" inBundle:[NSBundle bundleForClass:[self class]]] style:UIBarButtonItemStylePlain target:self action:@selector(showGridAnimated)]];
   } else {
@@ -332,8 +324,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 #pragma mark - Appearance
 
 - (void)viewWillAppear:(BOOL)animated {
-  
-  // Super
   [super viewWillAppear:animated];
   
   // Status bar
@@ -361,7 +351,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   
   // Initial appearance
   if (!_viewHasAppearedInitially) {
-    if (_startOnGrid) {
+    if (_startsOnGrid) {
       [self showGrid:NO];
     }
   }
@@ -374,7 +364,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   
   // Layout
   [self.view setNeedsLayout];
-  
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -383,7 +372,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   
   // Autoplay if first is video
   if (!_viewHasAppearedInitially) {
-    if (_autoPlayOnAppear) {
+    if (_automaticallyPlaysOnAppear) {
       id<MWPhoto> photo = [self photoAtIndex:_currentPageIndex];
       if ([photo respondsToSelector:@selector(isVideo)] && photo.isVideo) {
         [self playVideoAtIndex:_currentPageIndex];
@@ -392,7 +381,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   }
   
   _viewHasAppearedInitially = YES;
-  
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -694,7 +682,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (BOOL)photoIsSelectedAtIndex:(NSUInteger)index {
   BOOL value = NO;
-  if (_displaySelectionButtons) {
+  if (_displaysSelectionButtons) {
     if ([self.delegate respondsToSelector:@selector(photoBrowser:isPhotoSelectedAtIndex:)]) {
       value = [self.delegate photoBrowser:self isPhotoSelectedAtIndex:index];
     }
@@ -703,7 +691,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 }
 
 - (void)setPhotoSelected:(BOOL)selected atIndex:(NSUInteger)index {
-  if (_displaySelectionButtons) {
+  if (_displaysSelectionButtons) {
     if ([self.delegate respondsToSelector:@selector(photoBrowser:photoAtIndex:selectedChanged:)]) {
       [self.delegate photoBrowser:self photoAtIndex:index selectedDidChange:selected];
     }
@@ -837,7 +825,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
       }
       
       // Add selected button
-      if (self.displaySelectionButtons) {
+      if (self.displaysSelectionButtons) {
         UIButton *selectedButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [selectedButton setImage:[UIImage imageForResourcePath:@"MWPhotoBrowser.bundle/ImageSelectedOff" ofType:@"png" inBundle:[NSBundle bundleForClass:[self class]]] forState:UIControlStateNormal];
         UIImage *selectedOnImage;
@@ -858,7 +846,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
       
     }
   }
-  
 }
 
 - (void)updateVisiblePageStates {
@@ -1064,7 +1051,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   if (_currentPageIndex != previousCurrentPage) {
     [self didStartViewingPageAtIndex:index];
   }
-  
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
@@ -1111,14 +1097,13 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   
   // Disable action button if there is no image or it's a video
   id<MWPhoto> photo = [self photoAtIndex:_currentPageIndex];
-  if ([photo underlyingImage] == nil || ([photo respondsToSelector:@selector(isVideo)] && photo.isVideo)) {
+  if (!photo.underlyingImage || ([photo respondsToSelector:@selector(isVideo)] && photo.isVideo)) {
     _actionButton.enabled = NO;
     _actionButton.tintColor = [UIColor clearColor]; // Tint to hide button
   } else {
     _actionButton.enabled = YES;
     _actionButton.tintColor = nil;
   }
-  
 }
 
 - (void)jumpToPageAtIndex:(NSUInteger)index animated:(BOOL)animated {
@@ -1258,8 +1243,8 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   [self clearCurrentVideo];
   
   // Dismiss
-  BOOL error = [[[notification userInfo] objectForKey:MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] intValue] == MPMovieFinishReasonPlaybackError;
-  if (error) {
+  BOOL hasError = [notification.userInfo[MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] integerValue] == MPMovieFinishReasonPlaybackError;
+  if (hasError) {
     // Error occured so dismiss with a delay incase error was immediate and we need to wait to dismiss the VC
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
       [self dismissViewControllerAnimated:YES completion:nil];
@@ -1267,7 +1252,6 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   } else {
     [self dismissViewControllerAnimated:YES completion:nil];
   }
-  
 }
 
 - (void)clearCurrentVideo {
@@ -1318,9 +1302,9 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   _gridController = [[MWGridViewController alloc] init];
   _gridController.initialContentOffset = _currentGridContentOffset;
   _gridController.browser = self;
-  _gridController.allowsSelection = _displaySelectionButtons;
+  _gridController.allowsSelection = _displaysSelectionButtons;
   _gridController.view.frame = self.view.bounds;
-  _gridController.view.frame = CGRectOffset(_gridController.view.frame, 0, (self.startOnGrid ? -1 : 1) * self.view.bounds.size.height);
+  _gridController.view.frame = CGRectOffset(_gridController.view.frame, 0, (self.startsOnGrid ? -1 : 1) * self.view.bounds.size.height);
   
   // Stop specific layout being triggered
   _skipNextPagingScrollViewPositioning = YES;
@@ -1350,7 +1334,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   [UIView animateWithDuration:animated ? 0.3 : 0 animations:^(void) {
     _gridController.view.frame = self.view.bounds;
     CGRect newPagingFrame = [self frameForPagingScrollView];
-    newPagingFrame = CGRectOffset(newPagingFrame, 0, (self.startOnGrid ? 1 : -1) * newPagingFrame.size.height);
+    newPagingFrame = CGRectOffset(newPagingFrame, 0, (self.startsOnGrid ? 1 : -1) * newPagingFrame.size.height);
     _pagingScrollView.frame = newPagingFrame;
   } completion:^(BOOL finished) {
     [_gridController didMoveToParentViewController:self];
@@ -1372,7 +1356,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   
   // Position prior to hide animation
   CGRect newPagingFrame = [self frameForPagingScrollView];
-  newPagingFrame = CGRectOffset(newPagingFrame, 0, (self.startOnGrid ? 1 : -1) * newPagingFrame.size.height);
+  newPagingFrame = CGRectOffset(newPagingFrame, 0, (self.startsOnGrid ? 1 : -1) * newPagingFrame.size.height);
   _pagingScrollView.frame = newPagingFrame;
   
   // Remember and remove controller now so things can detect a nil grid controller
@@ -1385,7 +1369,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   
   // Animate, hide grid and show paging scroll view
   [UIView animateWithDuration:0.3 animations:^{
-    tmpGridController.view.frame = CGRectOffset(self.view.bounds, 0, (self.startOnGrid ? -1 : 1) * self.view.bounds.size.height);
+    tmpGridController.view.frame = CGRectOffset(self.view.bounds, 0, (self.startsOnGrid ? -1 : 1) * self.view.bounds.size.height);
     _pagingScrollView.frame = [self frameForPagingScrollView];
   } completion:^(BOOL finished) {
     [tmpGridController willMoveToParentViewController:nil];
@@ -1403,7 +1387,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 - (void)setControlsHidden:(BOOL)hidden animated:(BOOL)animated permanent:(BOOL)permanent {
   
   // Force visible
-  if (![self numberOfPhotos] || _gridController || _alwaysShowControls)
+  if (![self numberOfPhotos] || _gridController || _alwaysShowsControls)
     hidden = NO;
   
   // Cancel any timers
@@ -1453,7 +1437,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     }
     
   }
-  [UIView animateWithDuration:animationDuration animations:^(void) {
+  [UIView animateWithDuration:animationDuration animations:^{
     
     CGFloat alpha = hidden ? 0 : 1;
     
@@ -1488,13 +1472,14 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
       }
     }
     
-  } completion:^(BOOL finished) {}];
+  } completion:NULL];
   
   // Control hiding timer
   // Will cancel existing timer but only begin hiding if
   // they are visible
-  if (!permanent) [self hideControlsAfterDelay];
-  
+  if (!permanent) {
+    [self hideControlsAfterDelay];
+  }
 }
 
 - (BOOL)prefersStatusBarHidden {
@@ -1559,11 +1544,11 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
   // Only if we're modal and there's a done button
   if (_doneButton) {
     // See if we actually just want to show/hide grid
-    if (self.enableGrid) {
-      if (self.startOnGrid && !_gridController) {
+    if (self.isGridEnabled) {
+      if (self.startsOnGrid && !_gridController) {
         [self showGrid:YES];
         return;
-      } else if (!self.startOnGrid && _gridController) {
+      } else if (!self.startsOnGrid && _gridController) {
         [self hideGrid];
         return;
       }
@@ -1625,9 +1610,7 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
     
     // Keep controls hidden
     [self setControlsHidden:NO animated:YES permanent:YES];
-    
   }
-  
 }
 
 #pragma mark - Action Progress
@@ -1656,7 +1639,9 @@ static void * MWVideoPlayerObservation = &MWVideoPlayerObservation;
 
 - (void)showProgressHUDCompleteMessage:(NSString *)message {
   if (message) {
-    if (self.progressHUD.isHidden) [self.progressHUD showAnimated:YES];
+    if (self.progressHUD.isHidden) {
+      [self.progressHUD showAnimated:YES];
+    }
     self.progressHUD.label.text = message;
     self.progressHUD.mode = MBProgressHUDModeCustomView;
     [self.progressHUD hideAnimated:YES afterDelay:1.5];

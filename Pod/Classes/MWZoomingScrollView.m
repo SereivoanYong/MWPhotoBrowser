@@ -217,7 +217,7 @@
 
 - (CGFloat)initialZoomScaleWithMinScale {
   CGFloat zoomScale = self.minimumZoomScale;
-  if (_photoImageView && _photoBrowser.zoomPhotosToFill) {
+  if (_photoImageView && _photoBrowser.zoomsPhotosToFill) {
     // Zoom image to fill if the aspect ratios are fairly similar
     CGSize boundsSize = self.bounds.size;
     CGSize imageSize = _photoImageView.image.size;
