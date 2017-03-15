@@ -1,17 +1,16 @@
 //
-//  MWCaptionView.m
+//  MWCaptionBar.m
 //  MWPhotoBrowser
 //
 //  Created by Michael Waterfall on 30/12/2011.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "MWCaptionView.h"
+#import "MWCaptionBar.h"
 
 static const CGFloat labelPadding = 10;
 
-@implementation MWCaptionView {
-  id<MWPhoto> _photo;
+@implementation MWCaptionBar {
   UILabel *_label;
 }
 

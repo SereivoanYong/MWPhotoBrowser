@@ -32,7 +32,6 @@
 		6003F5A9195388D20070C39A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5A8195388D20070C39A /* Images.xcassets */; };
 		601AAF9AA840CFEE8C5537AD /* libPods-MWPhotoBrowser_Example.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 91048D29E8CE928A5DACB3EF /* libPods-MWPhotoBrowser_Example.a */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		CB4D010D1D9A722300E5459F /* MWPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = CB4D010C1D9A722300E5459F /* MWPhoto.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,8 +69,6 @@
 		873B8AEA1B1F5CCA007FD442 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		91048D29E8CE928A5DACB3EF /* libPods-MWPhotoBrowser_Example.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MWPhotoBrowser_Example.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5C85CB7FE89F584D392C9CF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		CB4D010B1D9A722300E5459F /* MWPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MWPhoto.h; sourceTree = "<group>"; };
-		CB4D010C1D9A722300E5459F /* MWPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWPhoto.m; sourceTree = "<group>"; };
 		F720D9140F09ACC04373DCE9 /* Pods-MWPhotoBrowser_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MWPhotoBrowser_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MWPhotoBrowser_Example/Pods-MWPhotoBrowser_Example.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -145,8 +142,6 @@
 		6003F593195388D20070C39A /* Example */ = {
 			isa = PBXGroup;
 			children = (
-				CB4D010B1D9A722300E5459F /* MWPhoto.h */,
-				CB4D010C1D9A722300E5459F /* MWPhoto.m */,
 				4C18E1171B47E72800E3D63A /* AppDelegate.h */,
 				4C18E1181B47E72800E3D63A /* AppDelegate.m */,
 				4C18E1191B47E72800E3D63A /* Menu.h */,
@@ -322,7 +317,6 @@
 			files = (
 				4C18E11B1B47E72800E3D63A /* AppDelegate.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
-				CB4D010D1D9A722300E5459F /* MWPhoto.m in Sources */,
 				4C18E11C1B47E72800E3D63A /* Menu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MWPhoto.h"
-#import "MWCaptionView.h"
+#import "MWPhotoProtocol.h"
+#import "MWCaptionBar.h"
 
 // Debug Logging
 #if 0 // Set to 1 to enable debug logging
@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @optional
 - (id<MWPhoto>)photoBrowser:(MWPhotoBrowser *)photoBrowser thumbPhotoAtIndex:(NSInteger)index;
-- (MWCaptionView *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSInteger)index;
+- (MWCaptionBar *)photoBrowser:(MWPhotoBrowser *)photoBrowser captionViewForPhotoAtIndex:(NSInteger)index;
 - (nullable NSString *)photoBrowser:(MWPhotoBrowser *)photoBrowser titleForPhotoAtIndex:(NSInteger)index;
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser didDisplayPhotoAtIndex:(NSInteger)index;
 - (void)photoBrowser:(MWPhotoBrowser *)photoBrowser actionButtonPressedForPhotoAtIndex:(NSInteger)index;
@@ -39,7 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate, UIActionSheetDelegate>
+@interface MWPhotoBrowser : UIViewController <UIScrollViewDelegate>
 
 @property (nonatomic, weak, nullable) IBOutlet id<MWPhotoBrowserDelegate> delegate;
 

@@ -34,10 +34,11 @@ Pod::Spec.new do |s|
   }
   s.requires_arc = true
 
-  s.frameworks = 'ImageIO', 'AssetsLibrary', 'MediaPlayer'
+  s.frameworks = 'AssetsLibrary', 'MediaPlayer'
   s.weak_frameworks = 'Photos'
 
   s.dependency 'MBProgressHUD', '~> 1.0.0'
   s.dependency 'DACircularProgress', '~> 2.3'
+  s.dependency 'SDWebImage', '~> 4.0'
 
 end

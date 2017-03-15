@@ -1,5 +1,5 @@
 //
-//  MWCaptionView.h
+//  MWCaptionBar.h
 //  MWPhotoBrowser
 //
 //  Created by Michael Waterfall on 30/12/2011.
@@ -11,7 +11,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface MWCaptionView : UIToolbar
+@interface MWCaptionBar : UIToolbar
+
+@property (nonatomic, strong, readonly) id<MWPhoto> photo;
 
 // Init
 - (instancetype)initWithPhoto:(id<MWPhoto>)photo;

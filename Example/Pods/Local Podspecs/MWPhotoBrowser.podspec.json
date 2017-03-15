@@ -32,8 +32,6 @@
   },
   "requires_arc": true,
   "frameworks": [
-    "ImageIO",
-    "QuartzCore",
     "AssetsLibrary",
     "MediaPlayer"
   ],

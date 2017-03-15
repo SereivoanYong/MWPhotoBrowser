@@ -12,7 +12,7 @@
 #import "MWTapDetectingView.h"
 
 @protocol MWPhoto;
-@class MWPhotoBrowser, MWCaptionView;
+@class MWPhotoBrowser, MWCaptionBar;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, strong, nullable) id<MWPhoto> photo;
-@property (nonatomic, weak) MWCaptionView *captionView;
+@property (nonatomic, weak) MWCaptionBar *captionView;
 @property (nonatomic, weak) UIButton *selectedButton;
 @property (nonatomic, weak) UIButton *playButton;
 

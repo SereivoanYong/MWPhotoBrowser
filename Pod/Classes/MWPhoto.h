@@ -1,75 +1,36 @@
 //
-//  MWPhotoProtocol.h
+//  MWPhoto.h
 //  MWPhotoBrowser
 //
-//  Created by Michael Waterfall on 02/01/2012.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Michael Waterfall on 17/10/2010.
+//  Copyright 2010 d3i. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <Photos/Photos.h>
+#import "MWPhotoProtocol.h"
 
-NS_ASSUME_NONNULL_BEGIN
+// This class models a photo/image and it's caption
+// If you want to handle photos, caching, decompression
+// yourself then you can simply ensure your custom data model
+// conforms to MWPhotoProtocol
+@interface MWPhoto : NSObject <MWPhoto>
 
-// Notifications
-static NSNotificationName const MWPhotoLoadingDidEndNotification = @"MWPhotoLoadingDidEndNotification";
-static NSNotificationName const MWPhotoProgressNotification = @"MWPhotoProgressNotification";
-
-// If you wish to use your own data models for photo then they must conform
-// to this protocol. See instructions for details on each method.
-// Otherwise you can use the MWPhoto object or subclass it yourself to
-// store more information per photo.
-//
-// You can see the MWPhoto class for an example implementation of this protocol
-//
-@protocol MWPhoto <NSObject>
-
-@required
-
-// Return underlying UIImage to be displayed
-// Return nil if the image is not immediately available (loaded into memory, preferably
-// already decompressed) and needs to be loaded from a source (cache, file, web, etc)
-// IMPORTANT: You should *NOT* use this method to initiate
-// fetching of images from any external of source. That should be handled
-// in -loadUnderlyingImageAndNotify: which may be called by the photo browser if this
-// methods returns nil.
-@property (nonatomic, strong, nullable) UIImage *underlyingImage;
-
-// Called when the browser has determined the underlying images is not
-// already loaded into memory but needs it.
-- (void)loadUnderlyingImageAndNotify;
-
-// Fetch the image data from a source and notify when complete.
-// You must load the image asyncronously (and decompress it for better performance).
-// It is recommended that you use SDWebImageDecoder to perform the decompression.
-// See MWPhoto object for an example implementation.
-// When the underlying UIImage is loaded (or failed to load) you should post the following
-// notification:
-// [[NSNotificationCenter defaultCenter] postNotificationName:MWPHOTO_LOADING_DID_END_NOTIFICATION
-//                                                     object:self];
-- (void)performLoadUnderlyingImageAndNotify;
-
-// This is called when the photo browser has determined the photo data
-// is no longer needed or there are low memory conditions
-// You should release any underlying (possibly large and decompressed) image data
-// as long as the image can be re-loaded (from cache, file, or URL)
-- (void)unloadUnderlyingImage;
-
-@optional
-
-// If photo is empty, in which case, don't show loading error icons
+@property (nonatomic, strong) NSString *caption;
+@property (nonatomic, strong) NSURL *videoURL;
 @property (nonatomic, assign) BOOL emptyImage;
-
-// Video
 @property (nonatomic, assign) BOOL isVideo;
-- (void)getVideoURL:(void (^)(NSURL * _Nullable url))completion;
 
-// Return a caption string to be displayed over the image
-// Return nil to display no caption
-@property (nonatomic, strong, nullable) NSString *caption;
++ (MWPhoto *)photoWithImage:(UIImage *)image;
++ (MWPhoto *)photoWithURL:(NSURL *)url;
++ (MWPhoto *)photoWithAsset:(PHAsset *)asset targetSize:(CGSize)targetSize;
++ (MWPhoto *)videoWithURL:(NSURL *)url; // Initialise video with no poster image
 
-// Cancel any background loading of image data
-- (void)cancelAnyLoading;
+- (instancetype)init;
+- (instancetype)initWithImage:(UIImage *)image;
+- (instancetype)initWithURL:(NSURL *)url;
+- (instancetype)initWithAsset:(PHAsset *)asset targetSize:(CGSize)targetSize;
+- (instancetype)initWithVideoURL:(NSURL *)url;
 
 @end
 
-NS_ASSUME_NONNULL_END
