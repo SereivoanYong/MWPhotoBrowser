@@ -6,9 +6,7 @@
 //  Copyright 2010 d3i. All rights reserved.
 //
 
-#import <SDWebImage/SDWebImageDecoder.h>
 #import <SDWebImage/SDWebImageManager.h>
-#import <SDWebImage/SDWebImageOperation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "MWPhoto.h"
 #import "MWPhotoBrowser.h"
@@ -27,7 +25,7 @@
 @implementation MWPhoto {
   
   BOOL _loadingInProgress;
-  SDWebImageDownloadToken *_imageDownloadToken;
+  id <SDWebImageOperation> _imageDownloadOperation;
   PHImageRequestID _assetRequestID;
   PHImageRequestID _assetVideoRequestID;
   
@@ -208,7 +206,7 @@
 // Load from local file
 - (void)_performLoadUnderlyingImageAndNotifyWithWebURL:(NSURL *)url {
   @try {
-    _imageDownloadToken = [[SDWebImageManager sharedManager].imageDownloader downloadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL *targetURL) {
+    _imageDownloadOperation = [[SDWebImageManager sharedManager] loadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL *targetURL) {
       if (expectedSize > 0) {
         float progress = receivedSize / (float)expectedSize;
         NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -216,11 +214,11 @@
                               self, @"photo", nil];
         [[NSNotificationCenter defaultCenter] postNotificationName:MWPhotoProgressNotification object:dict];
       }
-    } completed:^(UIImage *image, NSData *date, NSError *error, BOOL finished) {
+    } completed:^(UIImage *image, NSData *date, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
       if (error) {
         MWLog(@"SDWebImage failed to download image: %@", error);
       }
-      _imageDownloadToken = nil;
+      _imageDownloadOperation = nil;
       self.underlyingImage = image;
       dispatch_async(dispatch_get_main_queue(), ^{
         [self imageLoadingComplete];
@@ -228,7 +226,7 @@
     }];
   } @catch (NSException *e) {
     MWLog(@"Photo from web: %@", e);
-    _imageDownloadToken = nil;
+    _imageDownloadOperation = nil;
     [self imageLoadingComplete];
   }
 }
@@ -323,8 +321,8 @@
 }
 
 - (void)cancelAnyLoading {
-  if (_imageDownloadToken != nil) {
-    [[SDWebImageManager sharedManager].imageDownloader cancel:_imageDownloadToken];
+  if (_imageDownloadOperation != nil) {
+    [_imageDownloadOperation cancel];
     _loadingInProgress = NO;
   }
   [self cancelImageRequest];
