@@ -23,12 +23,10 @@
 @end
 
 @implementation MWPhoto {
-  
   BOOL _loadingInProgress;
   id <SDWebImageOperation> _imageDownloadOperation;
   PHImageRequestID _assetRequestID;
   PHImageRequestID _assetVideoRequestID;
-  
 }
 
 @synthesize underlyingImage = _underlyingImage; // synth property from protocol
@@ -173,27 +171,27 @@
   } else if (_photoURL) {
     
     // Check what type of url it is
-    if ([[[_photoURL scheme] lowercaseString] isEqualToString:@"assets-library"]) {
+    if ([_photoURL.scheme.lowercaseString isEqualToString:@"assets-library"]) {
       
       // Load from assets library
-      [self _performLoadUnderlyingImageAndNotifyWithAssetsLibraryURL: _photoURL];
+      [self _performLoadUnderlyingImageAndNotifyWithAssetsLibraryURL:_photoURL];
       
     } else if ([_photoURL isFileReferenceURL]) {
       
       // Load from local file async
-      [self _performLoadUnderlyingImageAndNotifyWithLocalFileURL: _photoURL];
+      [self _performLoadUnderlyingImageAndNotifyWithLocalFileURL:_photoURL];
       
     } else {
       
       // Load async from web (using SDWebImage)
-      [self _performLoadUnderlyingImageAndNotifyWithWebURL: _photoURL];
+      [self _performLoadUnderlyingImageAndNotifyWithWebURL:_photoURL];
       
     }
     
   } else if (_asset) {
     
     // Load from photos asset
-    [self _performLoadUnderlyingImageAndNotifyWithAsset: _asset targetSize:_assetTargetSize];
+    [self _performLoadUnderlyingImageAndNotifyWithAsset:_asset targetSize:_assetTargetSize];
     
   } else {
     
@@ -209,9 +207,7 @@
     _imageDownloadOperation = [[SDWebImageManager sharedManager] loadImageWithURL:url options:0 progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL *targetURL) {
       if (expectedSize > 0) {
         float progress = receivedSize / (float)expectedSize;
-        NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                              [NSNumber numberWithFloat:progress], @"progress",
-                              self, @"photo", nil];
+        NSDictionary<NSString *, id> * dict = @{@"progress":@(progress), @"photo":self};
         [[NSNotificationCenter defaultCenter] postNotificationName:MWPhotoProgressNotification object:dict];
       }
     } completed:^(UIImage *image, NSData *date, NSError *error, SDImageCacheType cacheType, BOOL finished, NSURL *imageURL) {
@@ -253,20 +249,18 @@
     @autoreleasepool {
       @try {
         ALAssetsLibrary *assetslibrary = [[ALAssetsLibrary alloc] init];
-        [assetslibrary assetForURL:url
-                       resultBlock:^(ALAsset *asset){
-                         ALAssetRepresentation *rep = [asset defaultRepresentation];
-                         CGImageRef iref = [rep fullScreenImage];
-                         if (iref) {
-                           self.underlyingImage = [UIImage imageWithCGImage:iref];
-                         }
-                         [self performSelectorOnMainThread:@selector(imageLoadingComplete) withObject:nil waitUntilDone:NO];
-                       }
-                      failureBlock:^(NSError *error) {
-                        self.underlyingImage = nil;
-                        MWLog(@"Photo from asset library error: %@",error);
-                        [self performSelectorOnMainThread:@selector(imageLoadingComplete) withObject:nil waitUntilDone:NO];
-                      }];
+        [assetslibrary assetForURL:url resultBlock:^(ALAsset *asset) {
+          ALAssetRepresentation *rep = [asset defaultRepresentation];
+          CGImageRef iref = [rep fullScreenImage];
+          if (iref) {
+            self.underlyingImage = [UIImage imageWithCGImage:iref];
+          }
+          [self performSelectorOnMainThread:@selector(imageLoadingComplete) withObject:nil waitUntilDone:NO];
+        } failureBlock:^(NSError *error) {
+          self.underlyingImage = nil;
+          MWLog(@"Photo from asset library error: %@",error);
+          [self performSelectorOnMainThread:@selector(imageLoadingComplete) withObject:nil waitUntilDone:NO];
+        }];
       } @catch (NSException *e) {
         MWLog(@"Photo from asset library error: %@", e);
         [self performSelectorOnMainThread:@selector(imageLoadingComplete) withObject:nil waitUntilDone:NO];
@@ -277,22 +271,17 @@
 
 // Load from photos library
 - (void)_performLoadUnderlyingImageAndNotifyWithAsset:(PHAsset *)asset targetSize:(CGSize)targetSize {
-  
-  PHImageManager *imageManager = [PHImageManager defaultManager];
-  
-  PHImageRequestOptions *options = [PHImageRequestOptions new];
+  PHImageRequestOptions *options = [[PHImageRequestOptions alloc] init];
   options.networkAccessAllowed = YES;
   options.resizeMode = PHImageRequestOptionsResizeModeFast;
   options.deliveryMode = PHImageRequestOptionsDeliveryModeHighQualityFormat;
   options.synchronous = false;
   options.progressHandler = ^(double progress, NSError *error, BOOL *stop, NSDictionary *info) {
-    NSDictionary* dict = [NSDictionary dictionaryWithObjectsAndKeys:
-                          [NSNumber numberWithDouble: progress], @"progress",
-                          self, @"photo", nil];
+    NSDictionary<NSString *, id> *dict = @{@"progress":@(progress), @"photo":self};
     [[NSNotificationCenter defaultCenter] postNotificationName:MWPhotoProgressNotification object:dict];
   };
   
-  _assetRequestID = [imageManager requestImageForAsset:asset targetSize:targetSize contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
+  _assetRequestID = [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:targetSize contentMode:PHImageContentModeAspectFit options:options resultHandler:^(UIImage *result, NSDictionary *info) {
     dispatch_async(dispatch_get_main_queue(), ^{
       self.underlyingImage = result;
       [self imageLoadingComplete];
@@ -308,7 +297,7 @@
 }
 
 - (void)imageLoadingComplete {
-  NSAssert([[NSThread currentThread] isMainThread], @"This method must be called on the main thread.");
+  NSAssert([NSThread currentThread].isMainThread, @"This method must be called on the main thread.");
   // Complete so notify
   _loadingInProgress = NO;
   // Notify on next run loop
@@ -316,8 +305,7 @@
 }
 
 - (void)postCompleteNotification {
-  [[NSNotificationCenter defaultCenter] postNotificationName:MWPhotoLoadingDidEndNotification
-                                                      object:self];
+  [[NSNotificationCenter defaultCenter] postNotificationName:MWPhotoLoadingDidEndNotification object:self];
 }
 
 - (void)cancelAnyLoading {
